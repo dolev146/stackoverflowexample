@@ -14,31 +14,28 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun Navigation() {
-    val navCotroller = rememberNavController()
-    NavHost(navController = navCotroller, startDestination = Screen.MainScreen.route) {
-        composable(route = Screen.MainScreen.route) {
-            MainScreen(navController = navCotroller)
-        }
-        // if we want the name to be optional we can use navArgument with nullable = true
-        // we specify the route with ? to make it optional and we can use it in the composable
-        // ?name={name}
-        // if we want more than 1 parameter
-        // /{name}/{age}
-        composable(route = Screen.DetailScreen.route + "/{name}" , arguments = listOf(
-            navArgument("name") {
-                type = NavType.StringType
-                defaultValue = "Yaakov"
-                nullable = true
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = Screen.SwipeScreen.route) {
+//        composable(route = Screen.MainScreen.route) {
+//            MainScreen(navController = navCotroller)
+//        }
+
+
+        composable(route = Screen.SwipeScreen.route) {
+                celebListFilterNames.clear()
+                retrieveUserVotes()
+                celebListParam.clear()
+                retrieveCelebs()
+                Screen.SwipeScreen(navController = navController, auth = FirebaseAuth.getInstance())
             }
-        )
-        ){entry ->
-            DetailScreen(name = entry.arguments?.getString("name"))
-        }
+
     }
 }
+
 
 
 @Composable
@@ -58,13 +55,4 @@ fun MainScreen(navController: NavController) {
             Text("To Detail Screen")
         }
     }
-}
-
-
-@Composable
-fun DetailScreen(name: String?) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Hello $name")
-    }
-
 }
