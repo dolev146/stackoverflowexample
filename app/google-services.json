@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "714115049288",
+    "project_id": "stackoverflow-8c6c5",
+    "storage_bucket": "stackoverflow-8c6c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714115049288:android:5c02759438f25a0f61b57d",
+        "android_client_info": {
+          "package_name": "com.example.stackoverflowexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714115049288-30rj9i5b30a7cbmu0kama7m3ukjunnob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy3kq05WgyaNJzfwNcW5ZslrxrZLV0ygw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714115049288-30rj9i5b30a7cbmu0kama7m3ukjunnob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -20,17 +20,13 @@ import com.google.firebase.auth.FirebaseAuth
 fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.SwipeScreen.route) {
-//        composable(route = Screen.MainScreen.route) {
-//            MainScreen(navController = navCotroller)
-//        }
-
 
         composable(route = Screen.SwipeScreen.route) {
                 celebListFilterNames.clear()
                 retrieveUserVotes()
                 celebListParam.clear()
                 retrieveCelebs()
-                Screen.SwipeScreen(navController = navController, auth = FirebaseAuth.getInstance())
+                SwipeScreen()
             }
 
     }
@@ -38,21 +34,3 @@ fun Navigation() {
 
 
 
-@Composable
-fun MainScreen(navController: NavController) {
-    var text by remember { mutableStateOf("") }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 50.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(value = text, onValueChange = { text = it }, modifier = Modifier.fillMaxWidth())
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(modifier = Modifier.align(Alignment.End), onClick = {
-            navController.navigate(Screen.DetailScreen.withArgs(text))
-        }) {
-            Text("To Detail Screen")
-        }
-    }
-}

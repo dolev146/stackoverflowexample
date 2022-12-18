@@ -44,8 +44,9 @@ class MainActivity : ComponentActivity() {
 fun retrieveUserVotes()= CoroutineScope(Dispatchers.IO).launch {
     try {
         val auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser?.email.toString()
-        userVotesCollectionRef.whereEqualTo("userEmail" , user).get().addOnSuccessListener {
+        var userEmail = auth.currentUser?.email.toString()
+        userEmail = "v@v.com" // for testing purposes only it is user that already exists in the database
+        userVotesCollectionRef.whereEqualTo("userEmail" , userEmail).get().addOnSuccessListener {
                 documents ->
             for (document in documents) {
                 val celebName = document.getString("celebFullName")
@@ -60,6 +61,7 @@ fun retrieveUserVotes()= CoroutineScope(Dispatchers.IO).launch {
         }
     }
 }
+
 
 
 
@@ -79,14 +81,12 @@ fun retrieveCelebs() = CoroutineScope(Dispatchers.IO).launch {
     } catch (e: Exception) {
         Log.e("retrieveCelebs", "Error: ${e.message}")
     }
-    val userPrefList = userPref.toList()
 
 
         try {
             val querySnapshot = celebCollectionRef.get().await()
             for (document in querySnapshot.documents) {
                 val celebDocument = document
-                val celebID = celebDocument.id
                 val celebCompany = celebDocument.data?.get("company").toString()
                 val celebFirstName = celebDocument.data?.get("firstName").toString()
                 val celebLastName = celebDocument.data?.get("lastName").toString()
@@ -98,7 +98,7 @@ fun retrieveCelebs() = CoroutineScope(Dispatchers.IO).launch {
                 val celebImgUrl = celebDocument.data?.get("imgUrl").toString()
                 val celebInfo = celebDocument.data?.get("celebInfo").toString()
                 val celebCategory = celebDocument.data?.get("category").toString()
-                if (!userPrefList.contains(celebCategory)) {
+                if (!userPref.contains(celebCategory)) {
                     continue
                 }
                 val celebRightVotes = celebDocument.data?.get("rightVotes").toString().toLong()
